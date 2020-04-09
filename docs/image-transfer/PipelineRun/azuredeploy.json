@@ -68,7 +68,8 @@
     }
   },
   "variables": {
-    "transferType": "AzureStorageBlob"
+    "transferType": "AzureStorageBlob",
+    "empty": ""
   },
   "resources": [
     {
@@ -81,11 +82,11 @@
           "pipelineResourceId": "[parameters('pipelineResourceId')]",
           "artifacts": "[parameters('artifacts')]",
           "source": {
-            "type": "[if(not(empty(parameters('sourceName'))), variables('transferType'), '']",
+            "type": "[if(empty(parameters('sourceName')), variables('empty'), variables('transferType'))]",
             "name": "[parameters('sourceName')]"
           },
           "target": {
-            "type": "[if(not(empty(parameters('targetName'))), variables('transferType'), '')]",
+            "type": "[if(empty(parameters('sourceName')), variables('empty'), variables('transferType'))]",
             "name": "[parameters('targetName')]"
           },
           "catalogDigest": "[parameters('catalogDigest')]"
